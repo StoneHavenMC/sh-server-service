@@ -15,6 +15,8 @@ public class ClientIPInterceptor implements ServerInterceptor {
 
         // Extract the client's IP address from the metadata
         String clientIP = call.getAttributes().get(Grpc.TRANSPORT_ATTR_REMOTE_ADDR).toString();
+        clientIP = clientIP.replace("/", "");
+        clientIP = clientIP.split(":")[0];
 
         // Put the client's IP address in the call context for access in the service implementation
         Context context = Context.current().withValue(CLIENT_IP_KEY, clientIP);
