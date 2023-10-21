@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package fr.stonehaven.server;
+import "host.proto";
+import "google/protobuf/empty.proto";
+
+service ServerNetworkService {
+  rpc getAddress (google.protobuf.Empty) returns (Host) {};
+}
