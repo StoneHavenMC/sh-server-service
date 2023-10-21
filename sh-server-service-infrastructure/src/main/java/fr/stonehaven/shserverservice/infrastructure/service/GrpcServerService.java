@@ -27,6 +27,7 @@ public class GrpcServerService extends ServerServiceGrpc.ServerServiceImplBase {
             server.setServerType(request.getServerType());
             server.setStatus(ServerStatus.getById(request.getStatus().name()));
             server.setHost(request.getHost());
+            server.setPort(request.getPort());
             server.setPlayers(request.getPort());
             server.setGRpcPort(request.getGRpcPort());
             server.setGRpcApiKey(request.getGRpcApiKey());
@@ -64,7 +65,7 @@ public class GrpcServerService extends ServerServiceGrpc.ServerServiceImplBase {
             server.setServerType(request.getServerType());
             server.setStatus(ServerStatus.getById(request.getStatus().name()));
             server.setHost(request.getHost());
-            server.setPlayers(request.getPort());
+            server.setPort(request.getPort());
             server.setGRpcPort(request.getGRpcPort());
             server.setGRpcApiKey(request.getGRpcApiKey());
             server.setPlayers(request.getPlayers());
