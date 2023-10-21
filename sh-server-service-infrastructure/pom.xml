@@ -28,7 +28,7 @@
 			<artifactId>sh-server-service-core</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starteSr-security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
