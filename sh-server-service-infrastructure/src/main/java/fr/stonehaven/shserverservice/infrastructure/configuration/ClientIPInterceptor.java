@@ -14,7 +14,7 @@ public class ClientIPInterceptor implements ServerInterceptor {
             ServerCallHandler<ReqT, RespT> next) {
 
         // Extract the client's IP address from the metadata
-        String clientIP = headers.get(Metadata.Key.of("x-forwarded-for", Metadata.ASCII_STRING_MARSHALLER));
+        String clientIP = call.getAttributes().get(Grpc.TRANSPORT_ATTR_REMOTE_ADDR).toString();
 
         // Put the client's IP address in the call context for access in the service implementation
         Context context = Context.current().withValue(CLIENT_IP_KEY, clientIP);
