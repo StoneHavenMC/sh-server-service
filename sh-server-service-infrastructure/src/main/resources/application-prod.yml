@@ -1,0 +1,9 @@
+grpc:
+  server:
+    port: 9090
+    security:
+      enabled: true
+      certificate-chain: file:certs/cert.pem
+      private-key: file:certs/privkey.pem
+      client-auth: require
+      trust-cert-collection: file:certs/fullchain.pem

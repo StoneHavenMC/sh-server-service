@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package fr.stonehaven.server;
+import "server.proto";
+
+service ServerService {
+  rpc createServer (Server) returns (ServerResponse) {};
+  rpc updateServer (Server) returns (ServerResponse) {};
+  rpc removeServer (RemoveServerRequest) returns (RemoveServerResponse) {};
+  rpc getBestServer (GetBestServerRequest) returns (ServerResponse) {};
+  rpc getServer (GetServerRequest) returns (ServerResponse) {};
+}
+
+message ServerResponse {
+  oneof response {
+    Server server = 1;
+    ServerErrorResponse error = 2;
+  }
+}
+
+message ServerErrorResponse {
+  string message = 1;
+}
+
+message RemoveServerRequest {
+  string serverId = 1;
+}
+
+message RemoveServerResponse {
+  string message = 1;
+}
+
+message GetBestServerRequest {
+  string serverType = 1;
+}
+
+message GetServerRequest {
+  string serverId = 1;
+}
