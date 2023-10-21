@@ -17,4 +17,7 @@ message Server {
 
   int32 players = 8;
   int32 maxPlayers = 9;
+
+  int64 updatedAt = 10;
+  int64 createdAt = 11;
 }
