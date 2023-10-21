@@ -29,7 +29,9 @@ public class StatusConfigurationLogger {
         serversLog.append("\nServers:");
 
         for (SHServer server : serverService.getServers()) {
-            serversLog.append("\n").append(server.getId()).append(" [").append(server.getServerType()).append("] Status: ").append(server.getStatus())
+            serversLog.append("\n").append(server.getId()).append(" [").append(server.getServerType()).append("]")
+                    .append(" Host: ").append(server.getHost()).append(":").append(server.getPort())
+                    .append(" Status: ").append(server.getStatus())
                     .append(" Players: ").append(server.getPlayers()).append("/").append(server.getMaxPlayers());
         }
 
