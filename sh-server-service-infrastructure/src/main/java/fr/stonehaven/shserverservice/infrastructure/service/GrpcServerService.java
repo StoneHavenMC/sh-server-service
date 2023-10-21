@@ -113,7 +113,19 @@ public class GrpcServerService extends ServerServiceGrpc.ServerServiceImplBase {
         try {
             SHServer server = serverService.getBestServer(request.getServerType());
 
-            builder.setServer(Server.newBuilder().setId(server.getId()).setServerType(server.getServerType()).setStatus(fr.stonehaven.server.ServerStatus.valueOf(server.getStatus().name())).setHost(server.getHost()).setPort(server.getPort()).setGRpcPort(server.getGRpcPort()).setGRpcApiKey(server.getGRpcApiKey()).setPlayers(server.getPlayers()).setMaxPlayers(server.getMaxPlayers()).build());
+            builder.setServer(Server.newBuilder()
+                    .setId(server.getId())
+                    .setServerType(server.getServerType())
+                    .setStatus(fr.stonehaven.server.ServerStatus.valueOf(server.getStatus().name()))
+                    .setHost(server.getHost())
+                    .setPort(server.getPort())
+                    .setGRpcPort(server.getGRpcPort())
+                    .setGRpcApiKey(server.getGRpcApiKey())
+                    .setPlayers(server.getPlayers())
+                    .setMaxPlayers(server.getMaxPlayers())
+                    .setUpdatedAt(server.getUpdatedAt())
+                    .setCreatedAt(server.getCreatedAt())
+                    .build());
         } catch (ServerNotFoundException e) {
             builder.setError(ServerErrorResponse.newBuilder().setMessage("SERVER_NOT_FOUND").build());
         }
@@ -127,7 +139,19 @@ public class GrpcServerService extends ServerServiceGrpc.ServerServiceImplBase {
         try {
             SHServer server = serverService.getServer(request.getServerId());
 
-            builder.setServer(Server.newBuilder().setId(server.getId()).setServerType(server.getServerType()).setStatus(fr.stonehaven.server.ServerStatus.valueOf(server.getStatus().name())).setHost(server.getHost()).setPort(server.getPort()).setGRpcPort(server.getGRpcPort()).setGRpcApiKey(server.getGRpcApiKey()).setPlayers(server.getPlayers()).setMaxPlayers(server.getMaxPlayers()).build());
+            builder.setServer(Server.newBuilder()
+                    .setId(server.getId())
+                    .setServerType(server.getServerType())
+                    .setStatus(fr.stonehaven.server.ServerStatus.valueOf(server.getStatus().name()))
+                    .setHost(server.getHost())
+                    .setPort(server.getPort())
+                    .setGRpcPort(server.getGRpcPort())
+                    .setGRpcApiKey(server.getGRpcApiKey())
+                    .setPlayers(server.getPlayers())
+                    .setMaxPlayers(server.getMaxPlayers())
+                    .setUpdatedAt(server.getUpdatedAt())
+                    .setCreatedAt(server.getCreatedAt())
+                    .build());
         } catch (ServerNotFoundException e) {
             builder.setError(ServerErrorResponse.newBuilder().setMessage("SERVER_NOT_FOUND").build());
         }
