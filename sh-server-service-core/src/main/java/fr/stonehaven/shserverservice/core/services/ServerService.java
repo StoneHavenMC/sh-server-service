@@ -31,7 +31,7 @@ public class ServerService implements IServerService {
 
     private void startHealthChecker() {
         executorService.scheduleAtFixedRate(() -> {
-            if (!serverHealthChecker.isAlive()) {
+            if (serverHealthChecker == null || !serverHealthChecker.isAlive()) {
                 serverHealthChecker = new Thread(new ServerHealthChecker(this));
                 serverHealthChecker.start();
             }
