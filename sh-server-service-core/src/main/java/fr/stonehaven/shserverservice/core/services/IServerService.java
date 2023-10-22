@@ -7,11 +7,9 @@ import java.util.Set;
 
 public interface IServerService {
 
-    SHServer add(SHServer server);
+    SHServer update(SHServer server);
 
-    void remove(String id) throws ServerNotFoundException;
-
-    SHServer update(SHServer server) throws ServerNotFoundException;
+    void remove(String serverId) throws ServerNotFoundException;
 
     Set<SHServer> getServers();
 

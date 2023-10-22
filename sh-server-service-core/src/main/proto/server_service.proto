@@ -4,11 +4,11 @@ option java_multiple_files = true;
 
 package fr.stonehaven.server;
 import "server.proto";
+import "google/protobuf/empty.proto";
 
 service ServerService {
-  rpc createServer (Server) returns (ServerResponse) {};
   rpc updateServer (Server) returns (ServerResponse) {};
-  rpc removeServer (RemoveServerRequest) returns (RemoveServerResponse) {};
+  rpc getServers (google.protobuf.Empty) returns (ServerListResponse) {};
   rpc getBestServer (GetBestServerRequest) returns (ServerResponse) {};
   rpc getServer (GetServerRequest) returns (ServerResponse) {};
 }
@@ -18,6 +18,10 @@ message ServerResponse {
     Server server = 1;
     ServerErrorResponse error = 2;
   }
+}
+
+message ServerListResponse {
+  repeated Server servers = 1;
 }
 
 message ServerErrorResponse {
