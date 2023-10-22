@@ -2,12 +2,13 @@ package fr.stonehaven.shserverservice.core.services;
 
 import fr.stonehaven.shserverservice.core.domain.SHServer;
 import fr.stonehaven.shserverservice.core.exceptions.ServerNotFoundException;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -17,14 +18,13 @@ public class ServerService implements IServerService {
 
     private final Logger logger = LoggerFactory.getLogger(ServerService.class);
 
-    @Getter
-    private final CopyOnWriteArraySet<SHServer> servers;
+    private final Map<String, SHServer> servers;
 
     private final ScheduledExecutorService executorService;
     private Thread serverHealthChecker;
 
     public ServerService() {
-        this.servers = new CopyOnWriteArraySet<>();
+        this.servers = new HashMap<>();
         this.executorService = Executors.newScheduledThreadPool(1);
         startHealthChecker();
     }
@@ -40,11 +40,12 @@ public class ServerService implements IServerService {
 
     @Override
     public SHServer update(SHServer server) {
-        SHServer existingServer = servers.stream().filter(s -> s.getId().equals(server.getId())).findFirst().orElse(null);
+        SHServer existingServer = servers.getOrDefault(server.getId(), null);
         if (existingServer == null) {
             existingServer = new SHServer();
             existingServer.setId(server.getId());
-            servers.add(existingServer);
+            existingServer.setCreatedAt(server.getCreatedAt());
+            servers.put(existingServer.getId(), existingServer);
             logger.info("Discovered new server " + server.getId() + " of type " + server.getServerType() + " !");
         }
 
@@ -59,20 +60,25 @@ public class ServerService implements IServerService {
         existingServer.setPlayers(server.getPlayers());
         existingServer.setMaxPlayers(server.getMaxPlayers());
 
-        existingServer.setUpdatedAt(server.getUpdatedAt());
-        existingServer.setCreatedAt(server.getCreatedAt());
+        existingServer.setUpdatedAt(System.currentTimeMillis());
         return existingServer;
     }
 
     @Override
     public void remove(String serverId) throws ServerNotFoundException {
-        SHServer existingServer = servers.stream().filter(s -> s.getId().equals(serverId)).findFirst().orElseThrow(ServerNotFoundException::new);
-        servers.remove(existingServer);
+        SHServer existingServer = servers.getOrDefault(serverId, null);
+        if(existingServer == null) throw new ServerNotFoundException();
+        servers.remove(serverId);
+    }
+
+    @Override
+    public Set<SHServer> getServers() {
+        return new HashSet<>(servers.values());
     }
 
     @Override
     public Set<SHServer> getServers(String serverType) {
-        return servers.stream().filter(s -> s.getServerType().equals(serverType)).collect(Collectors.toSet());
+        return servers.values().stream().filter(s -> s.getServerType().equals(serverType)).collect(Collectors.toSet());
     }
 
     @Override
@@ -85,6 +91,8 @@ public class ServerService implements IServerService {
 
     @Override
     public SHServer getServer(String serverId) throws ServerNotFoundException {
-        return servers.stream().filter(s -> s.getId().equals(serverId)).findFirst().orElseThrow(ServerNotFoundException::new);
+        SHServer existingServer = servers.getOrDefault(serverId, null);
+        if(existingServer == null) throw new ServerNotFoundException();
+        return existingServer;
     }
 }
