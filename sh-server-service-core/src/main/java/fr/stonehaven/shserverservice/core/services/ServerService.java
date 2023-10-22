@@ -44,6 +44,7 @@ public class ServerService implements IServerService {
         if (existingServer == null) {
             existingServer = new SHServer();
             existingServer.setId(server.getId());
+            servers.add(existingServer);
             logger.info("Discovered new server " + server.getId() + " of type " + server.getServerType() + " !");
         }
 
