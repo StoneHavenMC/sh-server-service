@@ -32,7 +32,8 @@ public class StatusConfigurationLogger {
             serversLog.append("\n").append(server.getId()).append(" [").append(server.getServerType()).append("]")
                     .append("   | Host: ").append(server.getHost()).append(":").append(server.getPort())
                     .append("   | Status: ").append(server.getStatus())
-                    .append("   | Players: ").append(server.getPlayers()).append("/").append(server.getMaxPlayers());
+                    .append("   | Players: ").append(server.getPlayers()).append("/").append(server.getMaxPlayers())
+                    .append("   | Last Ping: ").append((System.currentTimeMillis() - server.getUpdatedAt())).append(" ms ago");
         }
 
         logger.info(serversLog.toString());
