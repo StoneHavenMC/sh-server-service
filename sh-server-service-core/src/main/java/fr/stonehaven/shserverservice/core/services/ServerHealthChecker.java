@@ -22,8 +22,8 @@ public class ServerHealthChecker implements Runnable {
         System.out.println("Running healthcheck daemon");
         for (SHServer server : serverService.getServers()) {
             try {
-                long lastPingedAt = System.currentTimeMillis() - server.getUpdatedAt();
-                if (lastPingedAt <= (HEALTHCHECK_INTERVAL + OFFSET_DELAY)) return;
+                long lastPongAgo = System.currentTimeMillis() - server.getUpdatedAt();
+                if (lastPongAgo <= (HEALTHCHECK_INTERVAL + OFFSET_DELAY)) return;
                 serverService.remove(server.getId());
                 logger.info("Server " + server.getId() + " haven't passed the healthcheck, removing it!");
             } catch (ServerNotFoundException e) {
