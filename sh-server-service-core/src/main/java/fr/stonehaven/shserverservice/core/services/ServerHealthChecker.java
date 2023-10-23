@@ -19,7 +19,7 @@ public class ServerHealthChecker implements Runnable {
 
     @Override
     public void run() {
-        logger.info("Running healthcheck daemon");
+        logger.info("Running healthcheck daemon for " + serverService.getServers().size() + " servers...");
         for (SHServer server : serverService.getServers()) {
             try {
                 long lastPongAgo = System.currentTimeMillis() - server.getUpdatedAt();
