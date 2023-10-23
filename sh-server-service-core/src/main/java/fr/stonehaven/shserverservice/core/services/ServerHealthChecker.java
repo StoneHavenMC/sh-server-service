@@ -19,6 +19,7 @@ public class ServerHealthChecker implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Running healthcheck daemon");
         for (SHServer server : serverService.getServers()) {
             try {
                 long lastUpdateRange = server.getUpdatedAt() + (HEALTHCHECK_INTERVAL + OFFSET_DELAY);
