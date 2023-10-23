@@ -19,10 +19,11 @@ public class ServerHealthChecker implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Running healthcheck daemon");
+        logger.info("Running healthcheck daemon");
         for (SHServer server : serverService.getServers()) {
             try {
                 long lastPongAgo = System.currentTimeMillis() - server.getUpdatedAt();
+                logger.info("Last pong of server " + server.getId() + " was " + lastPongAgo + " ms ago!");
                 if (lastPongAgo <= (HEALTHCHECK_INTERVAL + OFFSET_DELAY)) return;
                 serverService.remove(server.getId());
                 logger.info("Server " + server.getId() + " haven't passed the healthcheck, removing it!");
