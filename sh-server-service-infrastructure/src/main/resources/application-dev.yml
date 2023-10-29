@@ -2,7 +2,7 @@ grpc:
   server:
     port: 9091
     security:
-      enabled: true
+      enabled: false
       certificate-chain: file:certs/cert.pem
       private-key: file:certs/privkey.pem
       client-auth: require
