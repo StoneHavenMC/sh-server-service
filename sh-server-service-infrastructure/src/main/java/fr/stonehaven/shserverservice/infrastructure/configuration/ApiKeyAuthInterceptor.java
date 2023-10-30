@@ -18,7 +18,7 @@ public class ApiKeyAuthInterceptor implements ServerInterceptor {
         Metadata.Key<String> apiKeyMetadata = Metadata.Key.of("x-api-key", Metadata.ASCII_STRING_MARSHALLER);
         String apiKey = metadata.get(apiKeyMetadata);
 
-        if (Objects.nonNull(apiKey) && apiKey.equals(System.getenv("GRPC_API_KEY"))) {
+        if (Objects.nonNull(apiKey) && apiKey.equals(GRPC_API_KEY)) {
             return serverCallHandler.startCall(serverCall, metadata);
         } else {
             Status status = Status.UNAUTHENTICATED.withDescription("Invalid api-key");
