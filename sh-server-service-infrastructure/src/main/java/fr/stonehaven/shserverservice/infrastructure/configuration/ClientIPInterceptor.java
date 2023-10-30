@@ -24,7 +24,6 @@ public class ClientIPInterceptor implements ServerInterceptor {
         System.out.println("Received request from " + clientIP);*/
 
         String clientIP = headers.get(REAL_IP_KEY);
-        System.out.println("Received request from " + clientIP);
 
         // Put the client's IP address in the call context for access in the service implementation
         Context context = Context.current().withValue(CLIENT_IP_KEY, clientIP);
