@@ -2,11 +2,15 @@ package fr.stonehaven.shserverservice.infrastructure.configuration;
 
 import io.grpc.*;
 import net.devh.boot.grpc.server.interceptor.GrpcGlobalServerInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Objects;
 
 @GrpcGlobalServerInterceptor
 public class ApiKeyAuthInterceptor implements ServerInterceptor {
+
+    @Value("${grpc.api_key}")
+    private String GRPC_API_KEY;
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<ReqT, RespT> serverCall, Metadata metadata, ServerCallHandler<ReqT, RespT> serverCallHandler) {
