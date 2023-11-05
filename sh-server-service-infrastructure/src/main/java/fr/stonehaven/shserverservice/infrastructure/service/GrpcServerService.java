@@ -59,7 +59,6 @@ public class GrpcServerService extends ServerServiceGrpc.ServerServiceImplBase {
 
     @Override
     public void getServers(Empty request, StreamObserver<ServerListResponse> responseObserver) {
-        long start = System.currentTimeMillis();
         ServerListResponse.Builder builder = ServerListResponse.newBuilder();
         for (SHServer server : serverService.getServers()) {
             builder.addServers(Server.newBuilder()
@@ -78,7 +77,6 @@ public class GrpcServerService extends ServerServiceGrpc.ServerServiceImplBase {
             );
         }
         builder.build();
-        System.out.println("getServers took " + (System.currentTimeMillis()-start) + " ms!");
         responseObserver.onNext(builder.build());
         responseObserver.onCompleted();
     }
