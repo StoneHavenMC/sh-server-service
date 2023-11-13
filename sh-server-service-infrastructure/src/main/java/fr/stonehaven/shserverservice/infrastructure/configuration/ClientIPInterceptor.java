@@ -19,7 +19,6 @@ public class ClientIPInterceptor implements ServerInterceptor {
         String clientIP = call.getAttributes().get(Grpc.TRANSPORT_ATTR_REMOTE_ADDR).toString();
         clientIP = clientIP.replace("/", "");
         clientIP = clientIP.split(":")[0];
-        System.out.println("Received request from " + clientIP);
 
         /*String clientIP = headers.get(FORWARDED_FOR_KEY);
         System.out.println("Received request from " + clientIP);*/
